@@ -83,29 +83,33 @@ class App {
         val seenInInput = BooleanArray(10)
 
 
-        // Count correct positions
+        // Zähle richitge Positionen
         for (i in inputStr.indices) {
-            val digitValue = inputStr[i] - '0'
+            val digitValue = inputStr[i] - '0'              // Konvertiert  Charakter an Position i zu entsprechenden Integer-Wert
             if (inputStr[i] == generatedStr[i]) {
-                correctPositions++
-                seenInGenerated[digitValue] = true
-                seenInInput[digitValue] = true
+                correctPositions++                          // Erhöht für korrekten Positionen, wenn Zeichen an Position i in Benutzereingabe = Zeichen in generierten Zahl
+                seenInGenerated[digitValue] = true          // Markiert Wert als gesehen in 'seenInGenerated'
+                seenInInput[digitValue] = true              // Markiert Wert als gesehen in 'seenInInput'
+
             }
         }
 
-        // Count correct digits not in the correct position
+        // Zähle korrekten Ziffern, die nicht an richtigen Position sind
         for (i in inputStr.indices) {
-            val digitValue = inputStr[i] - '0'
+            val digitValue = inputStr[i] - '0'          // Konvertiert  Charakter an Position i zu entsprechenden Integer-Wert
             if (inputStr[i] != generatedStr[i] && !seenInInput[digitValue] && generatedStr.contains(inputStr[i])) {
-                correctDigits++
-                seenInInput[digitValue] = true
+                // Überprüft, ob Zeichen an Position i in Benutzereinagbe != Zeichen an gleicher Position in gleicher Position von generierter Zahl ist
+                // & ob Wert noch nicht als korrekte Ziffer in 'seenInput' markiert wurde
+                // & ob generierte Zahl das Zeichen enthält
+                correctDigits++                         // Erhöht Zähler für korrekte Ziffern, die nicht an richtigen Position sind
+                seenInInput[digitValue] = true          // Markiert den Wert als gesehen in 'seenInInput'
             }
         }
 
 
         //val generatedDigitsCount =
         //IntArray(10)                            // Zählt, wie oft jede Ziffer in 'generatedNumber' vorkommt
-        //val inputDigitsCount = IntArray(10)         // Zählt, wie oft jede Ziffer in 'inputStr' vorkommt
+        //val inputDigitsCount = IntArray(10)     // Zählt, wie oft jede Ziffer in 'inputStr' vorkommt
 
         // Zuerst die korrekten Positionen zählen und die Häufigkeiten der Ziffern in beiden Zahlen erfassen
         //inputStr.forEachIndexed { index, c ->
